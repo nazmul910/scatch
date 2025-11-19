@@ -1,9 +1,9 @@
 
-
 import mongoose from "mongoose";
+import config from "config";
 
 mongoose
-  .connect("mongodb://localhost:27017/ecom")
+  .connect(`${config.get("MONGODB_URI")}/ecom`)
   .then(() => {
     console.log("Connected to MongoDB");
   })
