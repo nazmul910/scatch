@@ -2,15 +2,21 @@ import mongoose from "mongoose";
 
 
 const userSchema = new mongoose.Schema({
-    fulname: String,
+    fullname: {
+        type: String,
+        minLength: 3,
+        trim:true
+    },
     email: String,
     password: String,
-    cart:{
-        type: Array,
-        default: []
-    },
-    isAdmin:Boolean,
-    order:{
+    cart:[
+        {
+        type: mongoose.Schema.Types.ObjectId,
+        ref:"product",
+    }
+    ],
+    order:{ 
+        
         type: Array,
         default: []
     },

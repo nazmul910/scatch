@@ -1,8 +1,18 @@
 
 import mongoose from "mongoose";
+import { type } from "os";
 
 const productSchema = new mongoose.Schema({
-    image:String,
+    image:{
+        url:{
+            type:String,
+            required:true
+        },
+        public_id:{
+            type:String,
+            required:true
+        }
+    },
     name:String,
     price: Number,
     discount:{
@@ -16,4 +26,4 @@ const productSchema = new mongoose.Schema({
 
 const ProductModel = mongoose.model("product", productSchema);
 
-export default ProductModel; 
+export default ProductModel;  

@@ -1,28 +1,22 @@
 import express from 'express';
-import AdminModel from '../models/admin-model.js';
+import ProductModel from '../models/product-model.js';
+import { loginAdmin, registerAdmin } from '../controllers/auth-controller.js';
 
 
 const adminRouter = express.Router();
 
-adminRouter.get("/",(req,res) =>{
+adminRouter.get("/owner",(req,res) =>{
     res.send("Admin Router Working")
 })
 
-
-adminRouter.post("/create", async (req,res) =>{
-    let admin = AdminModel.find();
-    if(admin.length > 0){
-        return res.status(400).json({message: "Admin Already Created"}) 
-    }
-
-    let {fullname,email,password} = req.body;
-    let createAdmin = await AdminModel.create({
-        fullname,
-        email,
-        password
-    })
-    res.status(201).send(createAdmin);
+adminRouter.get("/shop",async (req,res) =>{
+    let products = await ProductModel.find({});
+    res.json(products)
 })
+
+adminRouter.post("/login",loginAdmin)
+
+adminRouter.post("/create", registerAdmin)
 
 
 export default adminRouter;
